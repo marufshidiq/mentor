@@ -5,13 +5,19 @@ class MButton {
     void attach(int pin[], int mode = 1);
     void setState(char state[]);
     void setActive(bool active);
+    void setIncrement(char inc);
+    void setDecrement(char dec);
     char getBtn();
+    int getIndex(int num);
     bool isPressed();
   private:
+    int _index = 0;
     int *_pin;
     char *_state;
     bool _active = LOW;
     char _standBy = ' ';
+    char _increment = '^';
+    char _decrement = 'v';
 };
 
 MButton::MButton() {}
@@ -46,5 +52,29 @@ bool MButton::isPressed() {
   } else {
     return false;
   }
+}
+
+void MButton::setIncrement(char inc) {
+  _increment = inc;
+}
+
+void MButton::setDecrement(char dec) {
+  _decrement = dec;
+}
+
+int MButton::getIndex(int max) {
+  if(getBtn() == _increment){
+    _index--;
+  }
+  if(getBtn() == _decrement){
+    _index++;
+  }
+  if(_index<0){
+    _index = max-1;
+  }
+  if(_index>=max){
+    _index = 0;
+  }
+  return _index;
 }
 
