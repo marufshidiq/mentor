@@ -9,6 +9,8 @@ const int btnPin[] = {47, 49, 51, 53};
 char OK = 'O', CANCEL = 'X', UP = '^', DOWN = 'v';
 char btnState[] = {OK, CANCEL, UP, DOWN};
 
+String nameAxis[] = {"Base", "Shoulder", "Elbow", "Wrist Left", "Wrist Right", ""};
+
 const int numAxis = 5;
 /*                    BASE | SHOULDER | ELBOW | WLEFT | WRIGHT */
 const int potPin[] = { A5,      A4,       A3,    A2,     A1};

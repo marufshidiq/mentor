@@ -8,6 +8,7 @@ class MButton {
     void setIncrement(char inc);
     void setDecrement(char dec);
     char getBtn();
+    void setIndex(int num);
     int getIndex(int num);
     bool isPressed();
   private:
@@ -40,6 +41,7 @@ void MButton::setActive(bool active) {
 char MButton::getBtn() {
   for (int i = 0; i < 4; i++) {
     if (digitalRead(_pin[i]) == _active) {
+      while(digitalRead(_pin[i]) != _active);
       return _state[i];
     }
   }
@@ -65,9 +67,11 @@ void MButton::setDecrement(char dec) {
 int MButton::getIndex(int max) {
   if(getBtn() == _increment){
     _index--;
+    delay(200);
   }
   if(getBtn() == _decrement){
     _index++;
+    delay(200);
   }
   if(_index<0){
     _index = max-1;
@@ -76,5 +80,9 @@ int MButton::getIndex(int max) {
     _index = 0;
   }
   return _index;
+}
+
+void MButton::setIndex(int num){
+  _index = num;
 }
 
