@@ -13,6 +13,7 @@ class MServo {
     void setTolerance(int tolerance);
     void write(int target);
     void update();
+    bool reverse = false;
   private:
     int _pot, _dir, _pwm;
 
@@ -65,6 +66,9 @@ int MServo::movingAverage() {
 }
 
 void MServo::move(int val) {
+  if(reverse){
+    val *=-1;
+  }
   if (val >= 0) {
     digitalWrite(_dir, 0);
     analogWrite(_pwm, val);
