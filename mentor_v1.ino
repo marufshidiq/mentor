@@ -5,6 +5,7 @@
 #include "MButton.h"
 #include "menu.h"
 #include "variable.h"
+#include "serial.h"
 
 LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);  // Set the LCD I2C address
 MServo* axis = new MServo[numAxis];
@@ -70,7 +71,22 @@ void mainMenu() {
 void runSystem() {
   lcd.clear();
   lcd.print("Running");
+  for (int i = 0; i < numAxis; i++) {
+    data[i] = axis[i].getAngle();
+  }
   while (1) {
+    parsing(data, numAxis);
+    lcd_print(0, 1, "%3d %3d %3d %3d", data[0], data[1], data[2], data[3]);
+    for (int i = 0; i < numAxis; i++) {
+      axis[i].write(data[i]);
+    }
+    axis[BASE].update();
+    axis[SHOULDER].update();
+    axis[ELBOW].update();
+    if (btn.getBtn() == CANCEL) {
+      while (btn.getBtn() == CANCEL) {}
+      break;
+    }
   }
 }
 

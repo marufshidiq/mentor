@@ -35,3 +35,5 @@ struct AxisData {
 const int axisDataAddr = 50; // Start at 50; End at (50 + (AxisData * numAxis))
 
 AxisData axisData[numAxis];
+
+int data[numAxis];
